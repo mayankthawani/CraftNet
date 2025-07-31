@@ -7,11 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const formatPhoneToEmail = (phoneNumber) => {
     // Remove any non-digit characters
@@ -53,7 +55,8 @@ const Login = () => {
       alert("Login successful! Welcome back!");
       console.log("User logged in:", user);
 
-      // TODO: Redirect to dashboard or home page
+      // Redirect to seller dashboard
+      router.push("/seller/dashboard");
     } catch (error) {
       console.error("Error logging in:", error);
 

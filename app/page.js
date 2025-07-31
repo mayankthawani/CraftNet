@@ -69,10 +69,11 @@ export default function LandingPage() {
                     🏺 Start Selling Your Crafts
                   </Button>
                 </Link>
-                
-                <Button className="bg-white border-3 border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white px-12 py-6 rounded-2xl text-xl font-bold shadow-xl transform hover:scale-105 transition-all">
-                  🛍️ Buy Authentic Crafts
-                </Button>
+                <Link href="/buyer/signup">
+                  <Button className="bg-white border-3 border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white px-12 py-6 rounded-2xl text-xl font-bold shadow-xl transform hover:scale-105 transition-all">
+                    🛍️ Buy Authentic Crafts
+                  </Button>
+                </Link>
               </div>
               <div className="mt-8 flex flex-wrap gap-6 text-sm text-gray-600">
                 <div className="flex items-center gap-2">

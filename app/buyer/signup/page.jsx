@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-const sellerSignup = () => {
+const BuyerSignup = () => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -123,7 +123,7 @@ const sellerSignup = () => {
           <CardTitle className="text-2xl font-bold text-gray-900">
             Join CraftNet
           </CardTitle>
-          <p className="text-gray-600">Sign up as a Seller</p>
+          <p className="text-gray-600">Sign up as a Buyer</p>
         </CardHeader>
         
         <CardContent className="space-y-4">
@@ -209,5 +209,5 @@ const sellerSignup = () => {
   );
 };
 
-export default sellerSignup;
+export default BuyerSignup;
           

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
-const Login = () => {
+const sellerLogin = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -130,7 +130,7 @@ const Login = () => {
             <p className="text-sm text-gray-600">
               Don't have an account?{" "}
               <Link
-                href="/seller/signup"
+                href="/signup"
                 className="text-orange-600 hover:text-orange-700 font-medium underline"
               >
                 Sign Up
@@ -152,4 +152,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default sellerLogin;

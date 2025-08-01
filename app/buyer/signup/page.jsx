@@ -21,7 +21,8 @@ const BuyerSignup = () => {
     
     // Validate Indian phone number (10 digits starting with 6-9)
     if (cleaned.length === 10 && /^[6-9]/.test(cleaned)) {
-      return `${cleaned}@gmail.com`;
+      // Use different email format for buyers to avoid conflicts with sellers
+      return `buyer_${cleaned}@craftnet.app`;
     }
     
     return null;
@@ -80,27 +81,31 @@ const BuyerSignup = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Save additional user data to Firestore
+      // Save additional user data to Firestore with permanent buyer role
       await setDoc(doc(db, 'users', user.uid), {
         name: name.trim(),
         phone: phone.replace(/\D/g, ''), // Store clean phone number
         email: email,
-        role: 'buyer',
+        role: 'buyer', // Permanent role - cannot be changed
+        accountType: 'buyer', // Additional field for clarity
         createdAt: new Date().toISOString(),
-        uid: user.uid
+        updatedAt: new Date().toISOString(),
+        uid: user.uid,
+        isActive: true,
+        permissions: ['view_products', 'place_orders', 'write_reviews'] // Buyer-specific permissions
       });
 
-      alert('Signup successful! Welcome to CraftNet!');
+      alert('Signup successful! Welcome to CraftNet as a Buyer!');
       
-      // TODO: Redirect to dashboard or home page
-      console.log('User created:', user);
+      // TODO: Redirect to buyer dashboard or home page
+      console.log('Buyer account created:', user);
       
     } catch (error) {
       console.error('Error creating account:', error);
       
       // Handle specific error cases
       if (error.code === 'auth/email-already-in-use') {
-        alert('This phone number is already registered. Please use a different number or try logging in.');
+        alert('This phone number is already registered as a buyer. Please use a different number or try logging in.');
       } else if (error.code === 'auth/weak-password') {
         alert('Password is too weak. Please choose a stronger password.');
       } else if (error.code === 'auth/invalid-email') {
@@ -157,6 +162,22 @@ const BuyerSignup = () => {
             </p>
           </div>
 
+          {/* Permanent Role Field - Read-only */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Account Type
+            </label>
+            <div className="w-full p-3 border border-gray-300 rounded-lg text-lg bg-gray-50 cursor-not-allowed">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-700 font-medium">🛍️ Buyer Account</span>
+                <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded">PERMANENT</span>
+              </div>
+            </div>
+            <p className="text-xs text-gray-500 mt-1">
+              This account type cannot be changed after registration
+            </p>
+          </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Password
@@ -188,13 +209,19 @@ const BuyerSignup = () => {
             disabled={loading}
             className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white py-3 text-lg font-semibold"
           >
-            {loading ? 'Creating Account...' : 'Create Account'}
+            {loading ? 'Creating Buyer Account...' : 'Create Buyer Account'}
           </Button>
           
           <div className="text-center">
             <p className="text-sm text-gray-600">
+              Want to sell products instead?{' '}
+              <a href="/seller/signup" className="text-orange-600 hover:text-orange-700 font-medium underline">
+                Register as Seller
+              </a>
+            </p>
+            <p className="text-sm text-gray-600 mt-2">
               Already have an account?{' '}
-              <a href="/seller/login" className="text-orange-600 hover:text-orange-700 font-medium underline">
+              <a href="/buyer/login" className="text-orange-600 hover:text-orange-700 font-medium underline">
                 Sign In
               </a>
             </p>
@@ -210,4 +237,3 @@ const BuyerSignup = () => {
 };
 
 export default BuyerSignup;
-          

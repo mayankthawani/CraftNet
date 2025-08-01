@@ -7,11 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-const sellerLogin = () => {
+const BuyerLogin = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const formatPhoneToEmail = (phoneNumber) => {
     // Remove any non-digit characters
@@ -19,7 +21,8 @@ const sellerLogin = () => {
 
     // Validate Indian phone number (10 digits starting with 6-9)
     if (cleaned.length === 10 && /^[6-9]/.test(cleaned)) {
-      return `${cleaned}@gmail.com`;
+      // Use buyer email format to differentiate from sellers
+      return `buyer_${cleaned}@craftnet.app`;
     }
 
     return null;
@@ -52,6 +55,7 @@ const sellerLogin = () => {
 
       alert("Login successful! Welcome back!");
       console.log("User logged in:", user);
+      router.push("/buyer/dashboard");
 
       // TODO: Redirect to dashboard or home page
     } catch (error) {
@@ -59,13 +63,13 @@ const sellerLogin = () => {
 
       // Handle specific error cases
       if (error.code === "auth/user-not-found") {
-        alert("No account found with this phone number. Please sign up first.");
+        alert("No buyer account found with this phone number. Please sign up as a buyer first or check if you have a seller account.");
       } else if (error.code === "auth/wrong-password") {
         alert("Incorrect password. Please try again.");
       } else if (error.code === "auth/invalid-email") {
         alert("Invalid phone number format. Please try again.");
       } else if (error.code === "auth/user-disabled") {
-        alert("This account has been disabled. Please contact support.");
+        alert("This buyer account has been disabled. Please contact support.");
       } else {
         alert("Failed to log in. Please try again.");
       }
@@ -84,7 +88,7 @@ const sellerLogin = () => {
           <CardTitle className="text-2xl font-bold text-gray-900">
             Welcome Back
           </CardTitle>
-          <p className="text-gray-600">Sign in to CraftNet</p>
+          <p className="text-gray-600">Sign in as Buyer</p>
         </CardHeader>
 
         <CardContent className="space-y-4">
@@ -101,7 +105,7 @@ const sellerLogin = () => {
               maxLength={10}
             />
             <p className="text-xs text-gray-500 mt-1">
-              Example: 9876543210 (same number you used to sign up)
+              Example: 9876543210 (same number you used to sign up as buyer)
             </p>
           </div>
 
@@ -123,17 +127,26 @@ const sellerLogin = () => {
             disabled={loading}
             className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white py-3 text-lg font-semibold"
           >
-            {loading ? "Signing In..." : "Sign In"}
+            {loading ? "Signing In..." : "Sign In as Buyer"}
           </Button>
 
           <div className="text-center">
             <p className="text-sm text-gray-600">
-              Don't have an account?{" "}
+              Don't have a buyer account?{" "}
               <Link
-                href="/signup"
+                href="/buyer/signup"
                 className="text-orange-600 hover:text-orange-700 font-medium underline"
               >
-                Sign Up
+                Sign Up as Buyer
+              </Link>
+            </p>
+            <p className="text-sm text-gray-600 mt-2">
+              Want to sell products?{" "}
+              <Link
+                href="/seller/login"
+                className="text-orange-600 hover:text-orange-700 font-medium underline"
+              >
+                Seller Login
               </Link>
             </p>
           </div>
@@ -152,4 +165,4 @@ const sellerLogin = () => {
   );
 };
 
-export default sellerLogin;
+export default BuyerLogin;

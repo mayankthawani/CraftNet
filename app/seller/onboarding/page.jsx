@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import Link from 'next/link';
 
 const Onboarding = () => {
   const router = useRouter();
@@ -15,6 +16,7 @@ const Onboarding = () => {
     address: '',
     pincode: '',
     upiId: '',
+    vishwakarmaId: '',
     about: '',
     skills: ''
   });
@@ -46,6 +48,7 @@ const Onboarding = () => {
               address: userData.address || userData.location || '',
               pincode: userData.pincode || '',
               upiId: userData.upiId || '',
+              vishwakarmaId: userData.vishwakarmaId || '',
               about: userData.about || '',
               skills: userData.skills ? userData.skills.join(', ') : ''
             }));
@@ -99,7 +102,8 @@ const Onboarding = () => {
         profileComplete: true,
         role: 'seller',
         updatedAt: new Date().toISOString(),
-        uid: uid
+        uid: uid,
+        hasVishwakarmaId: !!formData.vishwakarmaId.trim()
       }, { merge: true });
 
       alert('Profile completed successfully!');
@@ -218,6 +222,50 @@ const Onboarding = () => {
                 maxLength={6}
                 required
               />
+            </div>
+          </div>
+
+          {/* Government Benefits Section */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
+            <div className="flex items-center mb-4">
+              <span className="text-2xl mr-3">🏛️</span>
+              <h3 className="text-lg font-semibold text-blue-900">Government Benefits</h3>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-blue-900 mb-2">
+                  PM Vishwakarma ID (Optional)
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter your PM Vishwakarma ID if you have one"
+                  value={formData.vishwakarmaId}
+                  onChange={(e) => setFormData({ ...formData, vishwakarmaId: e.target.value })}
+                  className="w-full p-3 border border-blue-300 rounded-lg text-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <p className="text-xs text-blue-700 mt-1">
+                  This helps you get government benefits and recognition
+                </p>
+              </div>
+
+              <div className="bg-white p-4 rounded-lg border border-blue-200">
+                <h4 className="font-semibold text-blue-900 mb-2 flex items-center">
+                  <span className="mr-2">💡</span>
+                  Don't have PM Vishwakarma ID?
+                </h4>
+                <p className="text-sm text-blue-800 mb-3">
+                  Get up to ₹3 lakh loan, free training, and government recognition through PM Vishwakarma Yojana!
+                </p>
+                <Link 
+                  href="/seller/vishwakarma-guide"
+                  target="_blank"
+                  className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors"
+                >
+                  <span className="mr-2">📋</span>
+                  Learn How to Register
+                </Link>
+              </div>
             </div>
           </div>
 

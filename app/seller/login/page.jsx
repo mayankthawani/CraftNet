@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const Login = () => {
+const SellerLogin = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,7 +21,8 @@ const Login = () => {
 
     // Validate Indian phone number (10 digits starting with 6-9)
     if (cleaned.length === 10 && /^[6-9]/.test(cleaned)) {
-      return `${cleaned}@gmail.com`;
+      // Use seller email format to differentiate from buyers
+      return `seller_${cleaned}@craftnet.app`;
     }
 
     return null;
@@ -62,13 +63,13 @@ const Login = () => {
 
       // Handle specific error cases
       if (error.code === "auth/user-not-found") {
-        alert("No account found with this phone number. Please sign up first.");
+        alert("No seller account found with this phone number. Please sign up as a seller first or check if you have a buyer account.");
       } else if (error.code === "auth/wrong-password") {
         alert("Incorrect password. Please try again.");
       } else if (error.code === "auth/invalid-email") {
         alert("Invalid phone number format. Please try again.");
       } else if (error.code === "auth/user-disabled") {
-        alert("This account has been disabled. Please contact support.");
+        alert("This seller account has been disabled. Please contact support.");
       } else {
         alert("Failed to log in. Please try again.");
       }
@@ -87,7 +88,7 @@ const Login = () => {
           <CardTitle className="text-2xl font-bold text-gray-900">
             Welcome Back
           </CardTitle>
-          <p className="text-gray-600">Sign in to CraftNet</p>
+          <p className="text-gray-600">Sign in as Seller</p>
         </CardHeader>
 
         <CardContent className="space-y-4">
@@ -104,7 +105,7 @@ const Login = () => {
               maxLength={10}
             />
             <p className="text-xs text-gray-500 mt-1">
-              Example: 9876543210 (same number you used to sign up)
+              Example: 9876543210 (same number you used to sign up as seller)
             </p>
           </div>
 
@@ -126,17 +127,26 @@ const Login = () => {
             disabled={loading}
             className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white py-3 text-lg font-semibold"
           >
-            {loading ? "Signing In..." : "Sign In"}
+            {loading ? "Signing In..." : "Sign In as Seller"}
           </Button>
 
           <div className="text-center">
             <p className="text-sm text-gray-600">
-              Don't have an account?{" "}
+              Don't have a seller account?{" "}
               <Link
                 href="/seller/signup"
                 className="text-orange-600 hover:text-orange-700 font-medium underline"
               >
-                Sign Up
+                Sign Up as Seller
+              </Link>
+            </p>
+            <p className="text-sm text-gray-600 mt-2">
+              Want to buy products?{" "}
+              <Link
+                href="/buyer/login"
+                className="text-orange-600 hover:text-orange-700 font-medium underline"
+              >
+                Buyer Login
               </Link>
             </p>
           </div>
@@ -155,4 +165,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SellerLogin;

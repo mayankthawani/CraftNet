@@ -82,9 +82,9 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="text-center lg:text-right">
-            <div className="text-3xl font-bold text-orange-600">₹15,240</div>
+            <div className="text-3xl font-bold text-orange-600">₹0</div>
             <div className="text-gray-600">This Month's Earnings</div>
-            <div className="text-sm text-green-600 mt-1">↗️ +23% Growth</div>
+            <div className="text-sm text-green-600 mt-1">↗️ +0% Growth</div>
           </div>
         </div>
       </div>
@@ -97,11 +97,11 @@ const Dashboard = () => {
               <span className="text-2xl">💰</span>
             </div>
             <div className="text-right">
-              <div className="text-xs text-green-600 font-medium">+18% this week</div>
+              <div className="text-xs text-green-600 font-medium">+0% this week</div>
             </div>
           </div>
           <div className="mt-4">
-            <p className="text-2xl font-bold text-gray-900">₹45,680</p>
+            <p className="text-2xl font-bold text-gray-900">₹0</p>
             <p className="text-gray-600">Total Earnings</p>
             <div className="flex items-center mt-2 text-sm text-gray-500">
               <span className="mr-1">📅</span>
@@ -120,7 +120,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="mt-4">
-            <p className="text-2xl font-bold text-gray-900">24</p>
+            <p className="text-2xl font-bold text-gray-900">0</p>
             <p className="text-gray-600">Total Products</p>
             <div className="flex items-center mt-2 text-sm text-gray-500">
               <span className="mr-1">⭐</span>
@@ -135,11 +135,11 @@ const Dashboard = () => {
               <span className="text-2xl">🛍️</span>
             </div>
             <div className="text-right">
-              <div className="text-xs text-purple-600 font-medium">12 pending</div>
+              <div className="text-xs text-purple-600 font-medium">0</div>
             </div>
           </div>
           <div className="mt-4">
-            <p className="text-2xl font-bold text-gray-900">156</p>
+            <p className="text-2xl font-bold text-gray-900">0</p>
             <p className="text-gray-600">Total Orders</p>
             <div className="flex items-center mt-2 text-sm text-gray-500">
               <span className="mr-1">🚚</span>
@@ -154,11 +154,11 @@ const Dashboard = () => {
               <span className="text-2xl">👥</span>
             </div>
             <div className="text-right">
-              <div className="text-xs text-orange-600 font-medium">+42 new followers</div>
+              <div className="text-xs text-orange-600 font-medium">+0 new followers</div>
             </div>
           </div>
           <div className="mt-4">
-            <p className="text-2xl font-bold text-gray-900">2,840</p>
+            <p className="text-2xl font-bold text-gray-900">0</p>
             <p className="text-gray-600">Customer Views</p>
             <div className="flex items-center mt-2 text-sm text-gray-500">
               <span className="mr-1">📍</span>
